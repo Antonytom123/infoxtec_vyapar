@@ -1,0 +1,202 @@
+<!-- create by Antony Tom -->
+{% extends 'company/src/html/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    body, html {
+        height: 100%;
+        overflow: hidden; /* Hide vertical scrolling */
+    }
+</style>
+
+<body style="background-color: rgba(176, 199, 205, 0.4); height: 100%;">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card rounded-lg" style="width: 16rem; margin-left: 196px; height: 40vw; margin-top: 80px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-2 col-lg-8" style=" margin-left: 8vw;">
+                                
+                                <a style="color: white; background-color: rgb(210, 132, 30); height: 35px;" class="btn mr-1 pt-2" href="{% url 'add_parties' %}">
+                                    <i class="fa-solid fa fa-plus"></i> &nbsp;Add Party
+                                </a>
+                            </div>
+                        </div>
+                    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table borderless" style="margin-top: 2vw;">
+                                    <thead>
+                                        <tr>
+                                            <th style="border: none; ">Party</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in Party %}
+                                        <tr>
+                                            <td style="border: none;"><a href="{% url 'view_party' p.id %}" style="color: black;">{{ p.party_name }}</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                    
+                            <div class="col-md-6">
+                                <table class="table borderless" style="margin-top: 2vw;">
+                                    <thead>
+                                        <tr>
+                                            <th style="border: none; padding-left: 30px;">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in Party %}
+                                        <tr>
+                                            <td style="border: none; position: relative;">
+                                                {% if p.payment == 'To Pay' %}
+                                                <span style="border: none; color: red; padding-left: 20px;">{{ p.openingbalance }}</span>
+                                                {% elif p.payment == 'To Receive' %}
+                                                <span style="border: none; color: green; padding-left: 20px;">{{ p.openingbalance }}</span>
+                                                {% else %}
+                                                <span style="border: none; color: black; padding-left: 20px;">{{ p.openingbalance }}</span>
+                                                {% endif %}
+                                                <span class="three-dots" style="cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); right: 10px;" onclick="toggleDropdown(this)">&#8942;</span>
+                                                <div class="dropdown-menu" style="display: none; position: absolute; right: 0;">
+                                                    <a class="dropdown-item" href="{% url 'edit_party' getparty.id %}">Edit</a>
+                                                    <a class="dropdown-item" href="{% url 'deleteparty' getparty.id %}">Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card rounded-lg" style="width: 17.5rem; margin-left: 80px; width: 57vw; margin-top: 80px; height: 13vw;">
+                    <div class="card-body">
+
+                        <h5 style="color: black; margin-top: -15px;">{{getparty.party_name}}</h5>
+                        
+                        <div class="row" style="margin-top: 1.3vw;">
+                            <div class="col-md-4" >
+                        <label for="" style="color: #000000;">Phone:</label>
+                    </div>
+                    <div class="col" >
+                        {% if getparty.contact %}
+                        <label for="" style="color: #000000; margin-left: -13.8vw;">{{ getparty.contact }}</label>
+                    {% else %}
+                        <a href="{% url 'edit_party' getparty.id %}" style="margin-left: -14vw;">Add Contact</a>
+                    {% endif %}
+                    </div>
+                    <div class="col-md-2" >
+                        <label for="" style="color: #000000; margin-left: 6vw;">Address:</label>
+                    </div>
+                    <div class="col" >
+                        {% if getparty.address %}
+                        <label for="" style="color: #000000; margin-left: 2vw;">{{getparty.address}}</label>
+                        {% else %}
+                        <a href="{% url 'edit_party' getparty.id %}" style="margin-left: 2vw;">Add Address</a>
+                    {% endif %}
+                    </div>
+                    </div>
+                    <div class="row" style="margin-top: 1.3vw;">
+                        <div class="col-md-4" >
+                    <label for="" style="color: #000000;">Email:</label>
+                </div>
+                <div class="col" >
+                    {% if getparty.email %}
+                    <label for="" style="color: #000000; margin-left: -14.4vw;">{{getparty.email}}</label>
+                    {% else %}
+                    <a href="{% url 'edit_party' getparty.id %}" style="margin-left: -14vw;">Add Email</a>
+                {% endif %}
+                </div>
+                <div class="col-md-2" >
+                    <label for="" style="color: #000000; margin-left: 6vw;">Gstin:</label>
+                </div>
+                <div class="col" >
+                    {% if getparty.gst_no %}
+                    <label for="" style="color: #000000; margin-left: 1vw;">{{getparty.gst_no}}</label>
+                    {% else %}
+                    <a href="{% url 'edit_party' getparty.id %}" style="margin-left: 1vw;">Add Gstin</a>
+                {% endif %}
+                </div>
+                </div>
+                <div class="row" style="margin-top: 1.3vw;">
+                    <div class="col-md-4" >
+                <label for="" style="color: #000000;">Credit limit:</label>
+            </div>
+            <div class="col" >
+                {% if getparty.creditlimit %}
+                <label for="" style="color: #000000; margin-left: -11.8vw;">{{getparty.creditlimit}}</label>
+                {% else %}
+                    <a href="{% url 'edit_party' getparty.id %}" style="margin-left: -14vw;">Add Creditlimit</a>
+                {% endif %}
+            </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                {% if getparty.openingbalance != "" %}
+                <div class="card rounded-lg" style="width: 57vw; margin-top: 255px; margin-left: -300px; height: 26vw;">
+                    <div class="card-body">
+                        <label for="" style="color: black;"><b>TRANSACTIONS</b></label>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Type</th>
+                                    <th>Number</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 20px; color: {% if getparty.payment == 'To Pay' %}red{% elif getparty.payment == 'To Receive' %}green{% else %}black{% endif %}; vertical-align: middle;">&#8226;</td>
+                                    <td style="color: black;">{{getparty.gst_type}}</td>
+                                    <td style="color: black;">{{getparty.gst_no}}</td>
+                                    <td style="color: black;">{{getparty.End_date}}</td>
+                                    <td style="color: black;">{{getparty.openingbalance}}</td>
+                                    <td style="color: black;">{{getparty.openingbalance}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+            </div>            
+        </div>
+    </div>
+
+</body>
+
+      
+<script>
+    function toggleDropdown(dotsElement) {
+        var dropdownMenu = dotsElement.nextElementSibling;
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target !== dotsElement && event.target !== dropdownMenu) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+        event.stopPropagation();
+    }
+</script>
+
+{% endblock %}

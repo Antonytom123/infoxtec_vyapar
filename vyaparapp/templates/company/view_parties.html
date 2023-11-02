@@ -1,0 +1,129 @@
+<!-- create by Antony Tom -->
+{% extends 'company/src/html/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    body, html {
+        height: 100%;
+        overflow: hidden; 
+    }
+</style>
+
+<body style="background-color: rgba(176, 199, 205, 0.4); height: 100%;">
+    {% if Party %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card rounded-lg" style="width: 16rem; margin-left: 196px; height: 40vw; margin-top: 80px;">
+                    <div class="card-body">
+                        <div class="col-sm-4 col-md-2 col-lg-8" style=" margin-left: 8vw;">
+                            <a style="color: white; background-color: rgb(210, 132, 30); height: 35px;" class="btn mr-1 pt-2" href="{% url 'add_parties' %}">
+                              <i class="fa-solid fa fa-plus"></i> &nbsp;Add Party
+                            </a>
+                          </div>
+                        
+                        <table class="table borderless" style="margin-top: 2vw;">
+                            <thead>
+                                <tr>
+                                    <th style="border: none; ">Party</th>
+                                    <th style="border: none; ">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in Party %}
+                                <tr>
+                                  <td><a href="{% url 'view_party' p.id  %}"  style="color: black;">{{p.party_name}}</a></td>
+                                  <td><a href="{% url 'view_party' p.id  %}" style="color: black;">{{p.openingbalance}}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                   
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card rounded-lg" style="width: 17.5rem; margin-left: 80px; width: 57vw; margin-top: 80px; height: 13vw;">
+                    <div class="card-body">
+
+                        <h5 style="color: black; margin-top: -15px;">{{Party.0.party_name}}</h5>
+                        <div class="row" style="margin-top: 1.3vw;">
+                            <div class="col-md-4" >
+                        <label for="" style="color: #000000;">Phone:</label>
+                    </div>
+                    <div class="col" >
+                        <label for="" style="color: #000000; margin-left: -13.8vw;">{{Party.0.contact}}</label>
+                    </div>
+                    <div class="col-md-2" >
+                        <label for="" style="color: #000000; margin-left: 6vw;">Address:</label>
+                    </div>
+                    <div class="col" >
+                        <label for="" style="color: #000000; margin-left: 2vw;">{{Party.0.address}}</label>
+                    </div>
+                    </div>
+                    <div class="row" style="margin-top: 1.3vw;">
+                        <div class="col-md-4" >
+                    <label for="" style="color: #000000;">Email:</label>
+                </div>
+                <div class="col" >
+                    <label for="" style="color: #000000; margin-left: -14.4vw;">{{Party.0.email}}</label>
+                </div>
+                <div class="col-md-2" >
+                    <label for="" style="color: #000000; margin-left: 6vw;">Gstin:</label>
+                </div>
+                <div class="col" >
+                    <label for="" style="color: #000000; margin-left: 1vw;">{{Party.0.gst_no}}</label>
+                </div>
+                </div>
+                <div class="row" style="margin-top: 1.3vw;">
+                    <div class="col-md-4" >
+                <label for="" style="color: #000000;">Credit limit:</label>
+            </div>
+            <div class="col" >
+                <label for="" style="color: #000000; margin-left: -11.8vw;">{{Party.0.creditlimit}}</label>
+            </div>
+            </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card rounded-lg" style="width: 57vw; margin-top: 255px; margin-left: -300px; height: 26vw;">
+                    <div class="card-body">
+                        <label for="" style="color: black;"><b>TRANSACTIONS</b></label>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Number</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color: black;">{{ Party.0.gst_type }}</td>
+                                    <td style="color: black;">{{ Party.0.gst_no }}</td>
+                                    <td style="color: black;">{{ Party.0.End_date }}</td>
+                                    <td style="color: black;">{{ Party.0.openingbalance }}</td>
+                                    <td style="color: black;">{{ Party.0.openingbalance }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {% else %}
+   
+   <a href="{% url 'add_parties' %}"><img src="{{'static/images/supermarketimg3.png'}}" alt="No Parties" style="max-width: 15%; margin-left: 50vw; margin-top: 20vw;"></a> 
+    <p>No parties available.</p>
+    {% endif %}
+
+</body>
+
+{% endblock %}
