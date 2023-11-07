@@ -590,15 +590,19 @@ def save_parties(request):
         payment = request.POST.get('paymentType', '')
         creditlimit = request.POST.get('creditlimit', '')
         current_date = request.POST['currentdate']
-        End_date = request.POST.get('enddate', '')
         additionalfield1 = request.POST['additionalfield1']
         additionalfield2 = request.POST['additionalfield2']
         additionalfield3 = request.POST['additionalfield3']
         user=User.objects.get(id=user_id)
         comp=Company
+        if (
+          not party_name
+          
+      ):
+          return render(request, 'add_parties.html')
 
         part = party(party_name=party_name, gst_no=gst_no,contact=contact,gst_type=gst_type, state=state,address=address, email=email, openingbalance=openingbalance,payment=payment,
-                       creditlimit=creditlimit,current_date=current_date,End_date=End_date,additionalfield1=additionalfield1,additionalfield2=additionalfield2,additionalfield3=additionalfield3,user=user,company=comp)
+                       creditlimit=creditlimit,current_date=current_date,additionalfield1=additionalfield1,additionalfield2=additionalfield2,additionalfield3=additionalfield3,user=user,company=comp)
         part.save() 
 
         if 'save_and_new' in request.POST:
@@ -612,9 +616,9 @@ def save_parties(request):
 
 
 def view_parties(request):
-  Company = company.objects.get(user=request.user)
+  Company = company.objects.get(user=request.user.id)
   user_id = request.user.id
-  Party=party.objects.filter(user=request.user)
+  Party=party.objects.filter(company=Company.id)
   return render(request, 'company/view_parties.html',{'Company':Company,'user_id':user_id,'Party':Party})
 
 
@@ -622,7 +626,7 @@ def view_party(request,id):
   Company = company.objects.get(user=request.user)
   user_id = request.user.id
   getparty=party.objects.get(id=id)
-  Party=party.objects.filter(user=request.user)
+  Party=party.objects.filter(company=Company.id)
   return render(request, 'company/view_party.html',{'Company':Company,'user_id':user_id,'Party':Party,'getparty':getparty})
 
 def edit_party(request,id):
@@ -652,7 +656,6 @@ def edit_saveparty(request, id):
         getparty.payment = request.POST.get('paymentType')
         getparty.creditlimit = request.POST['creditlimit']
         getparty.current_date = request.POST['currentdate']
-        getparty.End_date = request.POST['enddate']
         getparty.additionalfield1 = request.POST['additionalfield1']
         getparty.additionalfield2 = request.POST['additionalfield2']
         getparty.additionalfield3 = request.POST['additionalfield3']

@@ -61,22 +61,22 @@ class modules_list(models.Model):
     update_action = models.IntegerField(null=True,default=0) 
     status = models.CharField(max_length=100,null=True,default='New')  
   
+#_______________Parties_____________Antony Tom_______
 
 class party(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     company = models.ForeignKey(company, on_delete=models.CASCADE,null=True,blank=True)
-    party_name = models.CharField(max_length=100,null=True,blank=True)
+    party_name = models.CharField(max_length=100)
     gst_no = models.CharField(max_length=100,null=True,blank=True)
     contact = models.CharField(max_length=255,null=True,blank=True)
     gst_type = models.CharField(max_length=255,null=True,blank=True)
     state = models.CharField(max_length=100,null=True,blank=True)
     address = models.CharField(max_length=100,null=True,blank=True)
     email = models.EmailField(max_length=100,null=True,blank=True)
-    openingbalance = models.IntegerField(null=True,blank=True)
+    openingbalance = models.CharField(max_length=100,default='0',null=True,blank=True)
     payment = models.CharField(max_length=100,null=True,blank=True)
-    creditlimit = models.IntegerField(null=True,blank=True)
+    creditlimit = models.CharField(max_length=100,default='0',null=True,blank=True)
     current_date = models.DateField(max_length=255,null=True,blank=True)
-    End_date = models.DateField(max_length=255,null=True,blank=True)
     additionalfield1 = models.CharField(max_length=100,null=True,blank=True)
     additionalfield2 = models.CharField(max_length=100,null=True,blank=True)
     additionalfield3 = models.CharField(max_length=100,null=True,blank=True)
