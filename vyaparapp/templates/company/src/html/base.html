@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
   <!-- Font Awesome CSS CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!-- Font Awesome CSS -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -98,20 +98,30 @@
               
               
             </li>
-
-
-
-            <li class="sidebar-item">
-              <a class="sidebar-link mt-2" href="" aria-expanded="false"
-                style="color: black;background-color: rgb(210, 235, 241,0.5);">
+            
+            <li class="sidebar-item" style="display: flex; justify-content: space-between;">
+              <a class="sidebar-link mt-2" href="{% url 'view_parties' %}" aria-expanded="false"
+                style="color: black; background-color: rgb(210, 235, 241, 0.5); flex: 1; border-radius: 10px 0px 0px 10px;">
                 <span>
                   <b style="margin-left: 10px;"><i class="ti ti-users"></i></b>
                 </span>
                 <span class="hide-menu"><b>Parties</b></span>
               </a>
+              <a href="{% url 'add_parties' %}" class="sidebar-link  mt-2 plus-icon"
+                style="background-color: rgb(210, 235, 241, 0.5); border-radius: 0px 10px 10px 0px;">
+                <span>
+                  <b style="margin-right: 10px;"><i class="ti ti-plus"></i></b>
+                </span>
+              </a>
             </li>
+
+            <div class="position-relative">
+              <div class="position-absolute end-0 bottom-0" style="z-index: 1;margin-bottom: -2.9em;margin-right: 0.9rem;">
+                <a style="color: black;" href="{% url 'item_create' %}"><span class="fs-5 fa fa-plus-circle"></span></a>
+              </div>
+            </div>
             <li class="sidebar-item">
-              <a class="sidebar-link mt-2" href="" aria-expanded="false"
+              <a class="sidebar-link mt-2" href="{% url 'items_list' %}" aria-expanded="false"
                 style="color: black;background-color: rgb(210, 235, 241,0.5);">
                 <span>
                   <b style="margin-left: 10px;"><i class="fa fa-th"></i></b>
@@ -119,7 +129,6 @@
                 <span class="hide-menu"><b>Items</b></span>
               </a>
             </li>
-
             <li class="sidebar-item">
               <button class="btn dropdown-btn" style="margin-top: 10px; border: none;outline: none; color: black;background-color: rgb(210, 235, 241,0.5);width: 100%;text-align: left;">
                 <span>
@@ -384,6 +393,11 @@
           dropdownContent.style.display = "block";
         }
       });
+    }
+    function add_item()
+    {
+      alert('asdasd')
+      window.location.href='https://www.w3schools.com/jquery/jquery_get_started.asp'
     }
   </script>
 </body>
