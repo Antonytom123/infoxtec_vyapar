@@ -66,8 +66,46 @@ urlpatterns = [
     path('editstaff_profile/<sid>', views.editstaff_profile, name='editstaff_profile'),
     path('editstaff_profile_action/<sid>', views.editstaff_profile_action, name='editstaff_profile_action'),
 
+    path('distributor_home', views.distributor_home, name='distributor_home'),
+    path('distributor_reg', views.distributor_reg, name='distributor_reg'),
+    path('distributor_reg_action', views.distributor_reg_action, name='distributor_reg_action'),
+    path('distributors', views.distributors, name='distributors'),
+    path('clients', views.clients, name='clients'),
+    path('distributor_request', views.distributor_request, name='distributor_request'),
+    path('admin_distributor_accept/<id>', views.admin_distributor_accept, name='admin_distributor_accept'),
+    path('admin_distributor_reject/<id>', views.admin_distributor_reject, name='admin_distributor_reject'),
+    path('distributor_request_overview/<id>', views.distributor_request_overview, name='distributor_request_overview'),
+    path('distributor_details', views.distributor_details, name='distributor_details'),
+    path('distributor_details_overview/<id>', views.distributor_details_overview, name='distributor_details_overview'),
+    path('dcompany_request', views.dcompany_request, name='dcompany_request'),
+    path('dcompany_details', views.dcompany_details, name='dcompany_details'),
+    path('dcompany_request_overview/<id>', views.dcompany_request_overview, name='dcompany_request_overview'),
+    path('distributor_accept_company/<id>', views.distributor_accept_company, name='distributor_accept_company'),
+    path('distributor_reject_company/<id>', views.distributor_reject_company, name='distributor_reject_company'),
+    path('dcompany_details_overview/<id>', views.dcompany_details_overview, name='dcompany_details_overview'),
+    path('distributor_profile', views.distributor_profile, name='distributor_profile'),
+    
+    # ========================================   ASHIKH V U (START) ======================================================
 
-    #______________Parties_________________Antony Tom___________________________
+    path('item_create', views.item_create, name='item_create'),
+    path('items_list/<int:pk>', views.items_list, name='items_list'),
+    path('item_create_new', views.item_create_new, name='item_create_new'),
+    path('item_delete/<int:pk>', views.item_delete, name='item_delete'),
+    path('item_view_or_edit/<int:pk>', views.item_view_or_edit, name='item_view_or_edit'),
+    path('item_unit_create', views.item_unit_create, name='item_unit_create'),
+    path('item_update/<int:pk>', views.item_update, name='item_update'),
+    path('item_search_filter', views.item_search_filter, name='item_search_filter'),
+    path('item_get_detail/<int:pk>', views.item_get_detail, name='item_get_detail'),
+    path('item_get_details_for_modal_target/<int:pk>', views.item_get_details_for_modal_target, name='item_get_details_for_modal_target'),
+    path('ajust_quantity/<int:pk>', views.ajust_quantity, name='ajust_quantity'),
+    path('transaction_delete/<int:pk>', views.transaction_delete, name='transaction_delete'),
+    path('item_transaction_view_or_edit/<int:pk>/<int:tran>', views.item_transaction_view_or_edit, name='item_transaction_view_or_edit'),
+    path('update_adjusted_transaction/<int:pk>/<int:tran>', views.update_adjusted_transaction, name='update_adjusted_transaction'),
+    path('item_delete_open_stk/<int:pk>',views.item_delete_open_stk,name='item_delete_open_stk'),
+    
+    # ========================================   ASHIKH V U (END) ======================================================
+    
+    #______________Parties(new)_________________Antony Tom___________________________
 
     path('add_parties', views.add_parties, name='add_parties'),
     path('save_parties', views.save_parties, name='save_parties'),
@@ -76,12 +114,15 @@ urlpatterns = [
     path('edit_party/<int:id>', views.edit_party, name='edit_party'),
     path('edit_saveparty/<int:id>', views.edit_saveparty, name='edit_saveparty'),
     path('deleteparty/<int:id>', views.deleteparty, name='deleteparty'),
-    
+    #End
 
+    #______________Sales Invoice_________________Antony Tom___________________________
 
-
-
-    
+    path('add_salesinvoice', views.add_salesinvoice, name='add_salesinvoice'),
+    path('api/party-details/<str:party_name>/',views.get_party_details, name='get_party_details'),
+    path('api/get-item-details/<int:item_id>/',views.get_item_details, name='get_item_details'),
+    path('api/item-details/<int:item_id>/',views.item_details, name='item_details'),
+     path('itemdata_vendor_credit',views.itemdata_vendor_credit,name='itemdata_vendor_credit'),
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
